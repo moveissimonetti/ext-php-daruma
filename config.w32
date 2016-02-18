@@ -1,0 +1,13 @@
+// $Id$
+// vim:ft=javascript
+
+// If your extension references something external, use ARG_WITH
+// ARG_WITH("daruma_framework", "for daruma_framework support", "no");
+
+// Otherwise, use ARG_ENABLE
+// ARG_ENABLE("daruma_framework", "enable daruma_framework support", "no");
+
+if (PHP_DARUMA_FRAMEWORK != "no") {
+	EXTENSION("daruma_framework", "daruma_framework.c");
+}
+
