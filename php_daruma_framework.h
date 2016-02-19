@@ -44,10 +44,15 @@ extern zend_module_entry daruma_framework_module_entry;
 #define DARUMA_FRAMEWORK_G(v) (daruma_framework_globals.v)
 #endif
 
+#include <stdio.h>
+#include <stdlib.h>
 
-PHP_FUNCTION(eBuscarPortaVelocidade_DUAL_DarumaFramework) {
-    RETURN_LONG(eBuscarPortaVelocidade_DUAL_DarumaFramework());
-}
+
+PHP_FUNCTION(eBuscarPortaVelocidade_DUAL_DarumaFramework);
+PHP_FUNCTION(iImprimirTexto_DUAL_DarumaFramework);
+PHP_FUNCTION(eDefinirProduto_Daruma);
+PHP_FUNCTION(regAlterarValor_Daruma);
+PHP_FUNCTION(iCFImprimir_NFCe_Daruma);
 
 #endif	/* PHP_DARUMA_FRAMEWORK_H */
 
