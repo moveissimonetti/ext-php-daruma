@@ -42,38 +42,3 @@ int iImprimirTexto_DUAL_DarumaFramework(char* pszString, int iTam, ZEND_PARAM){
 
     return IImprimirTexto_DUAL_DarumaFramework(pszString, iTam);
 }
-
-int iEnviarBMP_DUAL_DarumaFramework(char* pszArqOrigem, ZEND_PARAM){
-	
-	CARREGA_FUNCAO(IEnviarBMP_DUAL_DarumaFramework, iEnviarBMP_DUAL_DarumaFramework_type, "iEnviarBMP_DUAL_DarumaFramework");
-
-	return IEnviarBMP_DUAL_DarumaFramework(pszArqOrigem);
-}
-
-int iConfigurarGuilhotina_DUAL_DarumaFramework(int iHabilitar, int iQtdeLinha, ZEND_PARAM){
-    
-	CARREGA_FUNCAO(IConfigurarGuilhotina_DUAL_DarumaFramework, iConfigurarGuilhotina_DUAL_DarumaFramework_type, "iConfigurarGuilhotina_DUAL_DarumaFramework");
-
-	return IConfigurarGuilhotina_DUAL_DarumaFramework(iHabilitar, iQtdeLinha);
-}
-
-int rStatusGuilhotina_DUAL_DarumaFramework(ZEND_PARAM){
-    
-	CARREGA_FUNCAO(RStatusGuilhotina_DUAL_DarumaFramework, rStatusGuilhotina_DUAL_DarumaFramework_type, "rStatusGuilhotina_DUAL_DarumaFramework");
-
-	return RStatusGuilhotina_DUAL_DarumaFramework();
-}
-
-int confProgramarAvancoPapel_ECF_Daruma(char* pszSepEntreLinhas, char* pszSepEntreDoc, char* pszLinhasGuilhotina, char* pszGuilhotina, char* pszImpClicheAntecipada, ZEND_PARAM){
-	
-	CARREGA_FUNCAO(ConfProgramarAvancoPapel_ECF_Daruma, confProgramarAvancoPapel_ECF_Daruma_type, "confProgramarAvancoPapel_ECF_Daruma");
-
-	return ConfProgramarAvancoPapel_ECF_Daruma(pszSepEntreLinhas, pszSepEntreDoc, pszLinhasGuilhotina, pszGuilhotina, pszImpClicheAntecipada);
-}
-
-int eAcionarGuilhotina_ECF_Daruma(char* pszTipoCorte, ZEND_PARAM){
-    
-	CARREGA_FUNCAO(EAcionarGuilhotina_ECF_Daruma, eAcionarGuilhotina_ECF_Daruma_type, "eAcionarGuilhotina_ECF_Daruma");
-
-	return EAcionarGuilhotina_ECF_Daruma(pszTipoCorte);
-}
