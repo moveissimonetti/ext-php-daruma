@@ -35,7 +35,7 @@ static int le_daruma_framework;
 /* {{{ PHP_INI
  */
 PHP_INI_BEGIN()
-    PHP_INI_ENTRY("darumaframework.path", "/opt/Daruma/libDarumaFramework.so", PHP_INI_ALL, NULL)
+    PHP_INI_ENTRY("darumaframework.path", "/opt/DarumaFramework/libDarumaFramework.so", PHP_INI_ALL, NULL)
 PHP_INI_END()
 
 PHP_FUNCTION(eBuscarPortaVelocidade_DUAL_DarumaFramework)
@@ -119,7 +119,7 @@ PHP_MSHUTDOWN_FUNCTION(daruma_framework)
 
 PHP_RINIT_FUNCTION(daruma_framework)
 {
-    carregarDarumaFramework("/opt/Daruma/libDarumaFramework.so");
+    carregarDarumaFramework("/opt/DarumaFramework/libDarumaFramework.so");
 	return SUCCESS;
 }
 
