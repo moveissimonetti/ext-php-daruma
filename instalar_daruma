@@ -7,6 +7,11 @@ sleep 2
 
 export http_proxy=http://192.168.111.25:3128 
 
+echo "Atualizando Para a última versão do php5"
+
+sudo apt-get update
+sudo apt-get install php5-dev
+
 if [ -d /tmp/libdaruma ]; then
 	rm -rf /usr/local/share/DarumaFramework
 	rm -rf /tmp/libdaruma
