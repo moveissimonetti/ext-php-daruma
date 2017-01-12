@@ -119,7 +119,6 @@ PHP_MSHUTDOWN_FUNCTION(daruma_framework)
 
 PHP_RINIT_FUNCTION(daruma_framework)
 {
-    carregarDarumaFramework("/opt/DarumaFramework/libDarumaFramework.so");
 	return SUCCESS;
 }
 
