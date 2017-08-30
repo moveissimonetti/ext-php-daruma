@@ -113,7 +113,6 @@ PHP_MINIT_FUNCTION(daruma_framework)
 
 PHP_MSHUTDOWN_FUNCTION(daruma_framework)
 {
-    descarregarDarumaFramework();
 	return SUCCESS;
 }
 
@@ -124,6 +123,7 @@ PHP_RINIT_FUNCTION(daruma_framework)
 
 PHP_RSHUTDOWN_FUNCTION(daruma_framework)
 {
+	descarregarDarumaFramework();
 	return SUCCESS;
 }
 
