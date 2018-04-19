@@ -1,50 +1,75 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <dlfcn.h>
 #include "library.h"
 
-static void* bibliotecaDinamica = NULL;
+static void* dynamicLibrary = NULL;
 
-void carregarDarumaFramework(const char* local) {
-
-    if (NULL != bibliotecaDinamica) {
-        return;
-    }
-
-    bibliotecaDinamica = DL_LOAD(local);
-
-    if (!bibliotecaDinamica) {
-        php_error(E_WARNING, "A biblioteca nao foi carregada: %s em %s", dlerror(), local);
-    }
+// Load the DarumaFramework for memory
+void loadDarumaFramework() 
+{
+	dynamicLibrary = dlopen("/opt/DarumaFramework/libDarumaFramework.so", RTLD_LAZY);
+	if (!dynamicLibrary) {
+		fputs (dlerror(), stderr);
+		exit(1);
+	}
 }
 
-void descarregarDarumaFramework() {
-    if (!bibliotecaDinamica) {
-        return;
-    }
-    
-    int descarregada = DL_UNLOAD(bibliotecaDinamica);
-    
+// Unload Daruma Framework of memory.
+//
+void unloadDarumaFramework() 
+{
+	char* error = NULL;
+	int descarregou = 0;
 
-    if (descarregada == 0) {
-        php_error(E_WARNING, "Aconteceu um erro ao descarregar a biblioteca: %d - %s. ", descarregada, dlerror());
-    }
+	if (dynamicLibrary) 
+	{
+#ifdef WIN32
+		descarregou = FreeLibrary((HMODULE) dynamicLibrary);
+#else
+		descarregou = dlclose(dynamicLibrary);
+#endif
+	}
+
+	if (!descarregou) {
+#ifdef WIN32
+		error = (char*) GetLastError();
+#else
+		error = dlerror();
+#endif
+		printf("Erro ao descarregar a DarumaFrameWork: %s\n", error);
+	}
+
 }
 
-void* carregarFuncaoDarumaFramework(char* nomeFuncao) {
+// @param nameFunction function name for load memory.
+// @return pointer for function or NULL;
+//
+void* loadFunctionDarumaFramework(const char* nameFunction) 
+{
+	void* function = NULL;
+	char* error = NULL;
 
-    carregarDarumaFramework("/opt/DarumaFramework/libDarumaFramework.so");
+	if (NULL == dynamicLibrary) 
+	{
+		loadDarumaFramework();
+	}
 
-    if (!bibliotecaDinamica) {
-        php_error(E_ERROR, "A biblioteca nao foi carregada.");
-        return;
-    }
+#ifdef WIN32
+	function = GetProcAddress((HMODULE) dynamicLibrary, nameFunction);
+#else
+	function = dlsym(dynamicLibrary, nameFunction);
+#endif
 
-    char* mensagemErro = NULL;
-    void* funcao = NULL;
+	if (NULL == function) 
+	{
+#ifdef WIN32
+		error = (char*) GetLastError();
+#else
+		error = dlerror();
+#endif
+		printf("error ao carregar a funcao %s: %s\n", nameFunction, error);
+	}
 
-    funcao = DL_FETCH_SYMBOL(bibliotecaDinamica, nomeFuncao);
-
-    if (funcao == NULL) {
-        php_error(E_WARNING, "%s", dlerror());
-    }
-
-    return funcao;
+	return function;
 }

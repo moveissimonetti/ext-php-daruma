@@ -10,8 +10,8 @@
 #include "php.h"
 
 
-void carregarDarumaFramework(const char* local);
-void descarregarDarumaFramework();
-void* carregarFuncaoDarumaFramework(char* fname);
+void loadDarumaFramework();
+void unloadDarumaFramework();
+void* loadFunctionDarumaFramework(const char* nameFunction);
 
 #endif //PHP_5_6_18_LIBRARY_H

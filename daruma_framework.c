@@ -40,7 +40,7 @@ PHP_INI_END()
 
 PHP_FUNCTION(eBuscarPortaVelocidade_DUAL_DarumaFramework)
 {
-    if(zend_parse_parameters_none() == FAILURE) {
+    if(zend_parse_parameters_none() != SUCCESS) {
         return RET_ERRO_ZEND_BIND;
     }
        
@@ -50,10 +50,10 @@ PHP_FUNCTION(eBuscarPortaVelocidade_DUAL_DarumaFramework)
 PHP_FUNCTION(iImprimirTexto_DUAL_DarumaFramework)
 {
     char* texto;
-    int tam;
-    int stringLen = 0;
+    zend_long tam;
+    size_t stringLen = 0;
     
-    if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "sl", &texto, &stringLen, &tam) == FAILURE) {
+    if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "sl", &texto, &stringLen, &tam) != SUCCESS) {
         return RET_ERRO_ZEND_BIND;
     }
     
@@ -63,12 +63,12 @@ PHP_FUNCTION(iImprimirTexto_DUAL_DarumaFramework)
 PHP_FUNCTION(eDefinirProduto_Daruma)
 {
     char* produto;
-    int produtoLen = 0;
+    size_t produtoLen = 0;
     
-    if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &produto, &produtoLen) == FAILURE) {
+    if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &produto, &produtoLen) != SUCCESS) {
         return RET_ERRO_ZEND_BIND;
     }
-    
+
     RETURN_LONG(eDefinirProduto_Daruma(produto));
 }
 
@@ -76,10 +76,10 @@ PHP_FUNCTION(regAlterarValor_Daruma)
 {
     char* pathChave;
     char* valor;   
-    int pathChaveLen = 0;
-    int valorLen = 0;
+    size_t pathChaveLen = 0;
+    size_t valorLen = 0;
     
-    if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &pathChave, &pathChaveLen, &valor, &valorLen) == FAILURE) {
+    if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &pathChave, &pathChaveLen, &valor, &valorLen) != SUCCESS) {
         return RET_ERRO_ZEND_BIND;
     }
     
@@ -92,14 +92,14 @@ PHP_FUNCTION(iCFImprimir_NFCe_Daruma)
     char* pathRetornoWS;
     char* linkQrCode;
     
-    int numColunas = 0;
-    int tipoNF = 0;
-    int pathXMLVendaLen = 0;
-    int pathRetornoWSLen = 0;
-    int linkQrCodeLen = 0;
+    zend_long numColunas = 0;
+    zend_long tipoNF = 0;
+    size_t pathXMLVendaLen = 0;
+    size_t pathRetornoWSLen = 0;
+    size_t linkQrCodeLen = 0;
     
-    if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "sssll", &pathXMLVenda, &pathXMLVendaLen, &pathRetornoWS, &pathRetornoWSLen, &linkQrCode, &linkQrCodeLen, &numColunas, &tipoNF) == FAILURE) {
-        return RET_ERRO_ZEND_BIND;
+    if(zend_parse_parameters(ZEND_NUM_ARGS(), "sssll", &pathXMLVenda, &pathXMLVendaLen, &pathRetornoWS, &pathRetornoWSLen, &linkQrCode, &linkQrCodeLen, &numColunas, &tipoNF) != SUCCESS) {
+        return;
     }
     
     RETURN_LONG(iCFImprimir_NFCe_Daruma(pathXMLVenda, pathRetornoWS, linkQrCode, numColunas, tipoNF));
@@ -123,7 +123,7 @@ PHP_RINIT_FUNCTION(daruma_framework)
 
 PHP_RSHUTDOWN_FUNCTION(daruma_framework)
 {
-	descarregarDarumaFramework();
+	unloadDarumaFramework();
 	return SUCCESS;
 }
 
