@@ -11,16 +11,13 @@ docker run -it --rm -v "$PWD":/usr/src/app -w /usr/src/app php:${PHP_VERSION}-cl
     phpize && \
     ./configure && \
 
-    # Clean previous build and build
+    # Clean previous build, build, and enable extension
     make clean && make && \
-
-    # Copy and enable extension
-    cp ./.libs/daruma_framework.so \$(php-config --extension-dir) && \
-        docker-php-ext-enable daruma_framework &&  \
+    make install && docker-php-ext-enable daruma_framework && \
 
     # Fix file permissions
     chown -R 1000:1000 . && \
 
-    # run extension test
+    # Test extension
     php daruma_framework.php && make test < /dev/null
 " | sed "s|/usr/src/app/||g"
