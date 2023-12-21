@@ -4,7 +4,7 @@
 extern zend_module_entry daruma_framework_module_entry;
 #define phpext_daruma_framework_ptr &daruma_framework_module_entry
 
-#define PHP_DARUMA_FRAMEWORK_VERSION "1.0.0" /* Replace with version number for your extension */
+#define PHP_DARUMA_FRAMEWORK_VERSION "2.0.0" /* Replace with version number for your extension */
 
 #ifdef PHP_WIN32
 #	define PHP_DARUMA_FRAMEWORK_API __declspec(dllexport)
