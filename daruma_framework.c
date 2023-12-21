@@ -1,23 +1,3 @@
-/*
-  +----------------------------------------------------------------------+
-  | PHP Version 5                                                        |
-  +----------------------------------------------------------------------+
-  | Copyright (c) 1997-2016 The PHP Group                                |
-  +----------------------------------------------------------------------+
-  | This source file is subject to version 3.01 of the PHP license,      |
-  | that is bundled with this package in the file LICENSE, and is        |
-  | available through the world-wide-web at the following url:           |
-  | http://www.php.net/license/3_01.txt                                  |
-  | If you did not receive a copy of the PHP license and are unable to   |
-  | obtain it through the world-wide-web, please send a note to          |
-  | license@php.net so we can mail you a copy immediately.               |
-  +----------------------------------------------------------------------+
-  | Author:                                                              |
-  +----------------------------------------------------------------------+
-*/
-
-/* $Id$ */
-
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -38,70 +18,105 @@ PHP_INI_BEGIN()
     PHP_INI_ENTRY("darumaframework.path", "/opt/DarumaFramework/libDarumaFramework.so", PHP_INI_ALL, NULL)
 PHP_INI_END()
 
+ZEND_BEGIN_ARG_INFO(arginfo_eBuscarPortaVelocidade_DUAL_DarumaFramework, 0)
+ZEND_END_ARG_INFO()
+
 PHP_FUNCTION(eBuscarPortaVelocidade_DUAL_DarumaFramework)
 {
     if(zend_parse_parameters_none() != SUCCESS) {
         return RET_ERRO_ZEND_BIND;
     }
-       
+
     RETURN_LONG(eBuscarPortaVelocidade_DUAL_DarumaFramework());
 }
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_iImprimirTexto_DUAL_DarumaFramework, 0, 0, 2)
+    ZEND_ARG_INFO(0, texto)
+    ZEND_ARG_INFO(0, tam)
+ZEND_END_ARG_INFO()
 
 PHP_FUNCTION(iImprimirTexto_DUAL_DarumaFramework)
 {
     char* texto;
     zend_long tam;
     size_t stringLen = 0;
-    
-    if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "sl", &texto, &stringLen, &tam) != SUCCESS) {
-        return RET_ERRO_ZEND_BIND;
-    }
-    
+
+    ZEND_PARSE_PARAMETERS_START(2, 2)
+        Z_PARAM_STRING(texto, stringLen)
+        Z_PARAM_LONG(tam)
+    ZEND_PARSE_PARAMETERS_END();
+
     RETURN_LONG(iImprimirTexto_DUAL_DarumaFramework(texto, tam));
 }
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_eDefinirProduto_Daruma, 0, 0, 1)
+    ZEND_ARG_INFO(0, produto)
+ZEND_END_ARG_INFO()
 
 PHP_FUNCTION(eDefinirProduto_Daruma)
 {
     char* produto;
     size_t produtoLen = 0;
-    
-    if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &produto, &produtoLen) != SUCCESS) {
-        return RET_ERRO_ZEND_BIND;
-    }
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_STRING(produto, produtoLen)
+    ZEND_PARSE_PARAMETERS_END();
 
     RETURN_LONG(eDefinirProduto_Daruma(produto));
 }
 
+ZEND_BEGIN_ARG_INFO_EX(arginfo_regAlterarValor_Daruma, 0, 0, 2)
+    ZEND_ARG_INFO(0, pathChave)
+    ZEND_ARG_INFO(0, valor)
+ZEND_END_ARG_INFO()
+
 PHP_FUNCTION(regAlterarValor_Daruma)
 {
     char* pathChave;
-    char* valor;   
+    char* valor;
     size_t pathChaveLen = 0;
     size_t valorLen = 0;
-    
-    if(zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &pathChave, &pathChaveLen, &valor, &valorLen) != SUCCESS) {
+
+    if(zend_parse_parameters(ZEND_NUM_ARGS(), "ss", &pathChave, &pathChaveLen, &valor, &valorLen) != SUCCESS) {
         return RET_ERRO_ZEND_BIND;
     }
-    
+
+    ZEND_PARSE_PARAMETERS_START(2, 2)
+        Z_PARAM_STRING(pathChave, pathChaveLen)
+        Z_PARAM_STRING(valor, valorLen)
+    ZEND_PARSE_PARAMETERS_END();
+
     RETURN_LONG(regAlterarValor_Daruma(pathChave, valor));
 }
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_iCFImprimir_NFCe_Daruma, 0, 0, 5)
+    ZEND_ARG_INFO(0, pathXMLVenda)
+    ZEND_ARG_INFO(0, pathRetornoWS)
+    ZEND_ARG_INFO(0, linkQrCode)
+    ZEND_ARG_INFO(0, numColunas)
+    ZEND_ARG_INFO(0, tipoNF)
+ZEND_END_ARG_INFO()
 
 PHP_FUNCTION(iCFImprimir_NFCe_Daruma)
 {
     char* pathXMLVenda;
     char* pathRetornoWS;
     char* linkQrCode;
-    
+
     zend_long numColunas = 0;
     zend_long tipoNF = 0;
     size_t pathXMLVendaLen = 0;
     size_t pathRetornoWSLen = 0;
     size_t linkQrCodeLen = 0;
-    
-    if(zend_parse_parameters(ZEND_NUM_ARGS(), "sssll", &pathXMLVenda, &pathXMLVendaLen, &pathRetornoWS, &pathRetornoWSLen, &linkQrCode, &linkQrCodeLen, &numColunas, &tipoNF) != SUCCESS) {
-        return;
-    }
-    
+
+    ZEND_PARSE_PARAMETERS_START(3, 5)
+        Z_PARAM_STRING(pathXMLVenda, pathXMLVendaLen)
+        Z_PARAM_STRING(pathRetornoWS, pathRetornoWSLen)
+        Z_PARAM_STRING(linkQrCode, linkQrCodeLen)
+        Z_PARAM_LONG(numColunas)
+        Z_PARAM_LONG(tipoNF)
+    ZEND_PARSE_PARAMETERS_END();
+
     RETURN_LONG(iCFImprimir_NFCe_Daruma(pathXMLVenda, pathRetornoWS, linkQrCode, numColunas, tipoNF));
 }
 
@@ -140,12 +155,12 @@ PHP_MINFO_FUNCTION(daruma_framework)
 }
 
 const zend_function_entry daruma_framework_functions[] = {
-    PHP_FE(eBuscarPortaVelocidade_DUAL_DarumaFramework, NULL)
-    PHP_FE(iImprimirTexto_DUAL_DarumaFramework, NULL)
-    PHP_FE(eDefinirProduto_Daruma, NULL)
-    PHP_FE(regAlterarValor_Daruma, NULL)
-    PHP_FE(iCFImprimir_NFCe_Daruma, NULL)
-	PHP_FE_END	
+    PHP_FE(eBuscarPortaVelocidade_DUAL_DarumaFramework, arginfo_eBuscarPortaVelocidade_DUAL_DarumaFramework)
+    PHP_FE(iImprimirTexto_DUAL_DarumaFramework, arginfo_iImprimirTexto_DUAL_DarumaFramework)
+    PHP_FE(eDefinirProduto_Daruma, arginfo_eDefinirProduto_Daruma)
+    PHP_FE(regAlterarValor_Daruma, arginfo_regAlterarValor_Daruma)
+    PHP_FE(iCFImprimir_NFCe_Daruma, arginfo_iCFImprimir_NFCe_Daruma)
+	PHP_FE_END
 };
 
 
@@ -155,8 +170,8 @@ zend_module_entry daruma_framework_module_entry = {
 	daruma_framework_functions,
 	PHP_MINIT(daruma_framework),
 	PHP_MSHUTDOWN(daruma_framework),
-	PHP_RINIT(daruma_framework),		
-	PHP_RSHUTDOWN(daruma_framework),	
+	PHP_RINIT(daruma_framework),
+	PHP_RSHUTDOWN(daruma_framework),
 	PHP_MINFO(daruma_framework),
 	PHP_DARUMA_FRAMEWORK_VERSION,
 	STANDARD_MODULE_PROPERTIES

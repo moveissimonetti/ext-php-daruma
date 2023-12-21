@@ -6,7 +6,7 @@
 static void* dynamicLibrary = NULL;
 
 // Load the DarumaFramework for memory
-void loadDarumaFramework() 
+void loadDarumaFramework()
 {
 	dynamicLibrary = dlopen("/opt/DarumaFramework/libDarumaFramework.so", RTLD_LAZY);
 	if (!dynamicLibrary) {
@@ -17,12 +17,12 @@ void loadDarumaFramework()
 
 // Unload Daruma Framework of memory.
 //
-void unloadDarumaFramework() 
+void unloadDarumaFramework()
 {
 	char* error = NULL;
 	int descarregou = 0;
 
-	if (dynamicLibrary) 
+	if (dynamicLibrary)
 	{
 #ifdef WIN32
 		descarregou = FreeLibrary((HMODULE) dynamicLibrary);
@@ -31,7 +31,7 @@ void unloadDarumaFramework()
 #endif
 	}
 
-	if (!descarregou) {
+	if (dynamicLibrary && !descarregou) {
 #ifdef WIN32
 		error = (char*) GetLastError();
 #else
@@ -45,12 +45,12 @@ void unloadDarumaFramework()
 // @param nameFunction function name for load memory.
 // @return pointer for function or NULL;
 //
-void* loadFunctionDarumaFramework(const char* nameFunction) 
+void* loadFunctionDarumaFramework(const char* nameFunction)
 {
 	void* function = NULL;
 	char* error = NULL;
 
-	if (NULL == dynamicLibrary) 
+	if (NULL == dynamicLibrary)
 	{
 		loadDarumaFramework();
 	}
@@ -61,7 +61,7 @@ void* loadFunctionDarumaFramework(const char* nameFunction)
 	function = dlsym(dynamicLibrary, nameFunction);
 #endif
 
-	if (NULL == function) 
+	if (NULL == function)
 	{
 #ifdef WIN32
 		error = (char*) GetLastError();
