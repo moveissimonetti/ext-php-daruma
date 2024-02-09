@@ -39,9 +39,8 @@ PHP_FUNCTION(iImprimirTexto_DUAL_DarumaFramework)
 {
     zend_string *texto;
     zend_long tam;
-    size_t stringLen = 0;
 
-    if(zend_parse_parameters(ZEND_NUM_ARGS(), "sl", &texto, &stringLen, &tam) != SUCCESS) {
+    if(zend_parse_parameters(ZEND_NUM_ARGS(), "Sl", &texto, &tam) != SUCCESS) {
         return RET_ERRO_ZEND_BIND;
     }
 
@@ -59,9 +58,8 @@ ZEND_END_ARG_INFO()
 PHP_FUNCTION(eDefinirProduto_Daruma)
 {
     zend_string *produto;
-    size_t produtoLen = 0;
 
-    if(zend_parse_parameters(ZEND_NUM_ARGS(), "s", &produto, &produtoLen) != SUCCESS) {
+    if(zend_parse_parameters(ZEND_NUM_ARGS(), "S", &produto) != SUCCESS) {
         return RET_ERRO_ZEND_BIND;
     }
 
@@ -81,10 +79,8 @@ PHP_FUNCTION(regAlterarValor_Daruma)
 {
     zend_string *pathChave;
     zend_string *valor;
-    size_t pathChaveLen = 0;
-    size_t valorLen = 0;
 
-    if(zend_parse_parameters(ZEND_NUM_ARGS(), "ss", &pathChave, &pathChaveLen, &valor, &valorLen) != SUCCESS) {
+    if(zend_parse_parameters(ZEND_NUM_ARGS(), "SS", &pathChave, &valor) != SUCCESS) {
         return RET_ERRO_ZEND_BIND;
     }
 
@@ -109,10 +105,6 @@ PHP_FUNCTION(iCFImprimir_NFCe_Daruma)
     zend_string *linkQrCode;
     zend_long numColunas = 0;
     zend_long tipoNF = 0;
-
-    size_t pathXMLVendaLen = 0;
-    size_t pathRetornoWSLen = 0;
-    size_t linkQrCodeLen = 0;
 
     if (zend_parse_parameters(ZEND_NUM_ARGS(), "SSSll", &pathXMLVenda, &pathRetornoWS, &linkQrCode, &numColunas, &tipoNF) == FAILURE) {
         return RET_ERRO_ZEND_BIND;
