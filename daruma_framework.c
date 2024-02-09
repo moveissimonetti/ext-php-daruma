@@ -37,16 +37,19 @@ ZEND_END_ARG_INFO()
 
 PHP_FUNCTION(iImprimirTexto_DUAL_DarumaFramework)
 {
-    char* texto;
+    zend_string *texto;
     zend_long tam;
     size_t stringLen = 0;
 
-    ZEND_PARSE_PARAMETERS_START(2, 2)
-        Z_PARAM_STRING(texto, stringLen)
-        Z_PARAM_LONG(tam)
-    ZEND_PARSE_PARAMETERS_END();
+    if(zend_parse_parameters(ZEND_NUM_ARGS(), "sl", &texto, &stringLen, &tam) != SUCCESS) {
+        return RET_ERRO_ZEND_BIND;
+    }
 
-    RETURN_LONG(iImprimirTexto_DUAL_DarumaFramework(texto, tam));
+    RETURN_LONG(
+        iImprimirTexto_DUAL_DarumaFramework(
+            ZSTR_VAL(texto),
+            (int) tam
+    ));
 }
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_eDefinirProduto_Daruma, 0, 0, 1)
@@ -55,14 +58,18 @@ ZEND_END_ARG_INFO()
 
 PHP_FUNCTION(eDefinirProduto_Daruma)
 {
-    char* produto;
+    zend_string *produto;
     size_t produtoLen = 0;
 
-    ZEND_PARSE_PARAMETERS_START(1, 1)
-        Z_PARAM_STRING(produto, produtoLen)
-    ZEND_PARSE_PARAMETERS_END();
+    if(zend_parse_parameters(ZEND_NUM_ARGS(), "s", &produto, &produtoLen) != SUCCESS) {
+        return RET_ERRO_ZEND_BIND;
+    }
 
-    RETURN_LONG(eDefinirProduto_Daruma(produto));
+    RETURN_LONG(
+        eDefinirProduto_Daruma(
+            ZSTR_VAL(produto)
+        )
+    );
 }
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_regAlterarValor_Daruma, 0, 0, 2)
@@ -72,8 +79,8 @@ ZEND_END_ARG_INFO()
 
 PHP_FUNCTION(regAlterarValor_Daruma)
 {
-    char* pathChave;
-    char* valor;
+    zend_string *pathChave;
+    zend_string *valor;
     size_t pathChaveLen = 0;
     size_t valorLen = 0;
 
@@ -81,12 +88,10 @@ PHP_FUNCTION(regAlterarValor_Daruma)
         return RET_ERRO_ZEND_BIND;
     }
 
-    ZEND_PARSE_PARAMETERS_START(2, 2)
-        Z_PARAM_STRING(pathChave, pathChaveLen)
-        Z_PARAM_STRING(valor, valorLen)
-    ZEND_PARSE_PARAMETERS_END();
-
-    RETURN_LONG(regAlterarValor_Daruma(pathChave, valor));
+    RETURN_LONG(regAlterarValor_Daruma(
+        ZSTR_VAL(pathChave),
+        ZSTR_VAL(valor)
+    ));
 }
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_iCFImprimir_NFCe_Daruma, 0, 0, 5)
@@ -99,25 +104,27 @@ ZEND_END_ARG_INFO()
 
 PHP_FUNCTION(iCFImprimir_NFCe_Daruma)
 {
-    char* pathXMLVenda;
-    char* pathRetornoWS;
-    char* linkQrCode;
-
+    zend_string *pathXMLVenda;
+    zend_string *pathRetornoWS;
+    zend_string *linkQrCode;
     zend_long numColunas = 0;
     zend_long tipoNF = 0;
+
     size_t pathXMLVendaLen = 0;
     size_t pathRetornoWSLen = 0;
     size_t linkQrCodeLen = 0;
 
-    ZEND_PARSE_PARAMETERS_START(3, 5)
-        Z_PARAM_STRING(pathXMLVenda, pathXMLVendaLen)
-        Z_PARAM_STRING(pathRetornoWS, pathRetornoWSLen)
-        Z_PARAM_STRING(linkQrCode, linkQrCodeLen)
-        Z_PARAM_LONG(numColunas)
-        Z_PARAM_LONG(tipoNF)
-    ZEND_PARSE_PARAMETERS_END();
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "SSSll", &pathXMLVenda, &pathRetornoWS, &linkQrCode, &numColunas, &tipoNF) == FAILURE) {
+        return RET_ERRO_ZEND_BIND;
+    }
 
-    RETURN_LONG(iCFImprimir_NFCe_Daruma(pathXMLVenda, pathRetornoWS, linkQrCode, numColunas, tipoNF));
+    RETURN_LONG(iCFImprimir_NFCe_Daruma(
+        ZSTR_VAL(pathXMLVenda),
+        ZSTR_VAL(pathRetornoWS),
+        ZSTR_VAL(linkQrCode),
+        (int)numColunas,
+        (int)tipoNF
+    ));
 }
 
 
