@@ -1,7 +1,4 @@
 #include "daruma_functions.h"
-#include "php_daruma_framework.h"
-
-static void* dynamicLibrary = NULL;
 
 int eBuscarPortaVelocidade_DUAL_DarumaFramework(){
     return ((int (*) (void)) loadFunctionDarumaFramework("eBuscarPortaVelocidade_DUAL_DarumaFramework")) ();
@@ -21,4 +18,12 @@ int eDefinirProduto_Daruma(char* pszProduto) {
 
 int iImprimirTexto_DUAL_DarumaFramework(char* pszString, int iTam) {
     return ((int (*) (char*, int)) loadFunctionDarumaFramework("iImprimirTexto_DUAL_DarumaFramework")) (pszString, iTam);
+}
+
+int eVerificarVersaoDLL_Daruma(char* pszRetr) {
+    return ((int (*) (char*)) loadFunctionDarumaFramework("eVerificarVersaoDLL_Daruma")) (pszRetr);
+}
+
+int isDarumaFrameworkCarregada() {
+    return isLoaded();
 }

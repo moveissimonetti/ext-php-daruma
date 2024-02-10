@@ -24,7 +24,7 @@ ZEND_END_ARG_INFO()
 PHP_FUNCTION(eBuscarPortaVelocidade_DUAL_DarumaFramework)
 {
     if(zend_parse_parameters_none() != SUCCESS) {
-        return RET_ERRO_ZEND_BIND;
+        return;
     }
 
     RETURN_LONG(eBuscarPortaVelocidade_DUAL_DarumaFramework());
@@ -41,7 +41,7 @@ PHP_FUNCTION(iImprimirTexto_DUAL_DarumaFramework)
     zend_long tam;
 
     if(zend_parse_parameters(ZEND_NUM_ARGS(), "Sl", &texto, &tam) != SUCCESS) {
-        return RET_ERRO_ZEND_BIND;
+        return;
     }
 
     RETURN_LONG(
@@ -60,7 +60,7 @@ PHP_FUNCTION(eDefinirProduto_Daruma)
     zend_string *produto;
 
     if(zend_parse_parameters(ZEND_NUM_ARGS(), "S", &produto) != SUCCESS) {
-        return RET_ERRO_ZEND_BIND;
+        return;
     }
 
     RETURN_LONG(
@@ -81,13 +81,44 @@ PHP_FUNCTION(regAlterarValor_Daruma)
     zend_string *valor;
 
     if(zend_parse_parameters(ZEND_NUM_ARGS(), "SS", &pathChave, &valor) != SUCCESS) {
-        return RET_ERRO_ZEND_BIND;
+        return;
     }
 
     RETURN_LONG(regAlterarValor_Daruma(
         ZSTR_VAL(pathChave),
         ZSTR_VAL(valor)
     ));
+}
+
+ZEND_BEGIN_ARG_INFO(arginfo_eVerificarVersaoDLL_Daruma, 0)
+ZEND_END_ARG_INFO()
+PHP_FUNCTION(eVerificarVersaoDLL_Daruma)
+{
+    if(zend_parse_parameters_none() != SUCCESS) {
+        return;
+    }
+
+//    char *versao;
+    char* versao = (char*) malloc(sizeof(char*) * 200);
+
+    int retorno = eVerificarVersaoDLL_Daruma(versao);
+
+    if (1 != retorno) {
+        RETURN_FALSE;
+    }
+
+    RETURN_STRING(versao);
+}
+
+ZEND_BEGIN_ARG_INFO(arginfo_isDarumaFrameworkCarregada, 0)
+ZEND_END_ARG_INFO()
+PHP_FUNCTION(isDarumaFrameworkCarregada)
+{
+    if(zend_parse_parameters_none() != SUCCESS) {
+        return;
+    }
+
+    RETURN_LONG(isDarumaFrameworkCarregada());
 }
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_iCFImprimir_NFCe_Daruma, 0, 0, 5)
@@ -127,6 +158,7 @@ PHP_MINIT_FUNCTION(daruma_framework)
 
 PHP_MSHUTDOWN_FUNCTION(daruma_framework)
 {
+    unloadDarumaFramework();
 	return SUCCESS;
 }
 
@@ -137,7 +169,6 @@ PHP_RINIT_FUNCTION(daruma_framework)
 
 PHP_RSHUTDOWN_FUNCTION(daruma_framework)
 {
-	unloadDarumaFramework();
 	return SUCCESS;
 }
 
@@ -150,6 +181,8 @@ PHP_MINFO_FUNCTION(daruma_framework)
     php_info_print_table_row(2, "iImprimirTexto_DUAL_DarumaFramework", "Sim");
     php_info_print_table_row(2, "iCFImprimir_NFCe_Daruma", "Sim");
     php_info_print_table_row(2, "eDefinirProduto_Daruma", "Sim");
+    php_info_print_table_row(2, "eVerificarVersaoDLL_Daruma", "Sim");
+    php_info_print_table_row(2, "isDarumaFrameworkCarregada", "Sim");
 	php_info_print_table_end();
 }
 
@@ -159,6 +192,8 @@ const zend_function_entry daruma_framework_functions[] = {
     PHP_FE(eDefinirProduto_Daruma, arginfo_eDefinirProduto_Daruma)
     PHP_FE(regAlterarValor_Daruma, arginfo_regAlterarValor_Daruma)
     PHP_FE(iCFImprimir_NFCe_Daruma, arginfo_iCFImprimir_NFCe_Daruma)
+    PHP_FE(eVerificarVersaoDLL_Daruma, arginfo_eVerificarVersaoDLL_Daruma)
+    PHP_FE(isDarumaFrameworkCarregada, arginfo_isDarumaFrameworkCarregada)
 	PHP_FE_END
 };
 

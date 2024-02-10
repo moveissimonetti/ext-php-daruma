@@ -32,6 +32,8 @@ PHP_FUNCTION(iImprimirTexto_DUAL_DarumaFramework);
 PHP_FUNCTION(eDefinirProduto_Daruma);
 PHP_FUNCTION(regAlterarValor_Daruma);
 PHP_FUNCTION(iCFImprimir_NFCe_Daruma);
+PHP_FUNCTION(eVerificarVersaoDLL_Daruma);
+PHP_FUNCTION(eVerificarVersaoDLL_Daruma);
 
 #endif	/* PHP_DARUMA_FRAMEWORK_H */
 

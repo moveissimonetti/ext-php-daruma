@@ -13,5 +13,6 @@
 void loadDarumaFramework();
 void unloadDarumaFramework();
 void* loadFunctionDarumaFramework(const char* nameFunction);
+int isLoaded();
 
 #endif //PHP_8_2_LIBRARY_H
